@@ -1,0 +1,11 @@
+{
+  "name": "gemini-exports",
+  "version": "0.1.0",
+  "description": "Support the exports interface for Gemini",
+  "author": "Vladislav Kurkin <b-vladi@yandex-team.ru> (https://github.com/B-Vladi)",
+  "license": "UNLICENSED",
+  "main": "lib/index.js",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
