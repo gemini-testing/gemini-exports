@@ -1,6 +1,6 @@
 {
-  "name": "@yandex-market/gemini-export",
-  "version": "0.0.1",
+  "name": "@yandex-market/gemini-exports",
+  "version": "0.0.2",
   "description": "Support the export interface for Gemini",
   "license": "UNLICENSED",
   "main": "lib/index.js",
