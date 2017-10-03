@@ -1,4 +1,4 @@
-Gemini Export
+Gemini Exports
 =======
 
 ## Index
