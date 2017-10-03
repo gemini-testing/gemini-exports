@@ -1,0 +1,13 @@
+{
+  "name": "@yandex-market/gemini-export",
+  "version": "0.0.1",
+  "description": "Support the export interface for Gemini",
+  "license": "UNLICENSED",
+  "main": "lib/index.js",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "publishConfig": {
+    "registry": "http://npm.yandex-team.ru/"
+  }
+}
