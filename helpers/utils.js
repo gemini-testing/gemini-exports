@@ -7,12 +7,24 @@ const extendedActions = require('./extendedActions');
 
 module.exports = {
 
+    /**
+     * Разлогин через удаление cookie
+     */
     logout: function() {
         return (actions, find) => {
             extendedActions.deleteCookie.call(actions, 'Session_id');
         };
     },
 
+    /**
+     * Добавление авторизации в before и разлогина в after
+     *
+     * @param {Object} suite -- объект сьюта
+     * @param {Object} options -- опции для логина
+     * @param {Object} options.login -- логин пользователя
+     * @param {Object} options.password -- пароль пользователя
+     * @param {Object} options.url -- URL, который откроется после завершения авторизации
+     */
     addAuth: function(suite, options) {
         suite
             .before(authAction(options))
@@ -44,7 +56,7 @@ function authorize(login, password, url) {
  *
  * @param {String} login -- логин пользователя
  * @param {String} password -- пароль пользователя
- * @param {String} passportHost -- логин пользователя
+ * @param {String} passportHost -- хост паспорта для авторизации
  *
  * @returns {String} строковое представление URL для авторизации;
  */
