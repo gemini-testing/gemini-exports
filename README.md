@@ -5,6 +5,7 @@ Gemini Exports
 
 - [Description](https://github.yandex-team.ru/market/gemini-exports#description)
 - [Using](https://github.yandex-team.ru/market/gemini-exports#using)
+- [Nested Suites](https://github.yandex-team.ru/market/gemini-exports#nested-suites)
 - [Suite Declaration](https://github.yandex-team.ru/market/gemini-exports#suite-declaration)
 
 ## Description
@@ -38,19 +39,62 @@ gemini.suite('My Suite', (suite) => {
         });
 });
 ```
+## Nested Suites
+Интерфейс поддерживает декларацию дочерниих сьютов.
+Дочерние сьюты наследуют значения полей `url` и `selector`, которые могут быть переопределены.
+Также наследуются хуки `before` и `after`, но при указании их в дочернем сьюте они будут дополнены, а не переопределены.
+ 
+Пример использования:
+```js
+module.exports = {
+    // Не будет выполнено никаких действий, потому что нет capture
+    suiteName: 'Parent suite',
+    url: '/some/path',
+    selector: '.selector1',
+    before(actions, find) {
+        // ...
+    },
+    after(actions, find) {
+        // ...
+    },
+    childSuites: [
+        {
+            suiteName: 'Child suite #1',
+            // переопределяет url; selector наследуется из родительского
+            url: '/another/path',
+            // Порядок выполнения: сначала родительский блок before, потом свой
+            before(actions, find) {
+                // ...
+            },
+            // Порядок выполнения: сначала свой блок after, потом родительский
+            after(actions, find) {
+                // ...
+            },
+            capture() {}
+        },
+        {
+            suiteName: 'Child suite #2',
+            // переопределяет selector; url наследуется из родительского
+            selector: '.selector2',
+            // будут выполнены родительские блоки before (до capture) и after(после capture)
+            capture() {}
+        }
+    ]
+};
+```
 
 ## Suite Declaration:
 Описание ключей декларации:
 
-##### `{string[]|string} selector`
-Селектор DOM-элемента или массив селекторов, скриншоты которых будут проверяться.
+##### `{string} suiteName`
+Имя сьюта.
 
 ___
 
-##### `{string} [suiteName]`
-Имя сьюта.
+##### `{string[]|string} [selector]`
+Селектор DOM-элемента или массив селекторов, скриншоты которых будут проверяться.
 
-**По-умолчанию:** Путь к файлу сьюта относительно рабочей директории.
+**По-умолчанию:** `'*'` вся страница.
 
 ___
 
@@ -66,8 +110,23 @@ ___
 
 ___
 
+##### `{Function} [before]`
+Функция, выполняющаяся до выполнения `capture`, но после открытия страницы, указанной в `url`.
+
+___
+
 ##### `{Function|Object} [capture]`
 Функция capture, на случай если стандартная не устраивает. Если передан объект, то ключ это название (например "plain"), а значение это функция для capture.
+
+___
+
+##### `{Function} [after]`
+Функция, выполняющаяся после выполнения `capture`.
+
+___
+
+##### `{Object[]} [childSuites]`
+Массив дочерних сьютов.
 
 ___
 
