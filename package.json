@@ -1,6 +1,6 @@
 {
   "name": "gemini-exports",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Support the exports interface for Gemini",
   "author": "Vladislav Kurkin <b-vladi@yandex-team.ru> (https://github.com/B-Vladi)",
   "license": "UNLICENSED",
